@@ -1,21 +1,19 @@
-import { useEffect } from "react";
 import "./App.css";
-import useSocket from "./hooks/useSocket";
-
+import Home from "./pages/Home";
+import Registration from "./pages/Registration";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/layout/Layout";
 function App() {
-  const [socket] = useSocket();
-  useEffect(() => {
-    // listen to connect event from server
-    socket.on("connect", () => {
-      console.log("connected to server");
-    });
-
-    // cleanup function that will handle closing connection to our server
-    return () => {
-      socket.disconnect();
-    };
-  }, [socket]);
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="registration" element={<Registration />} />
+        </Routes>
+      </Layout>
+    </div>
+  );
 }
 
 export default App;
