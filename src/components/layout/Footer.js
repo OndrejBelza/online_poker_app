@@ -1,4 +1,7 @@
+import { Container, Row, Col } from "react-bootstrap";
+import "../../scss/Layout.scss";
+
 const Footer = () => {
-  return <>This is footer</>;
+  return <Container className="footer">This is footer</Container>;
 };
 export default Footer;
