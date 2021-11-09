@@ -15,6 +15,7 @@ const SignupSchema = Yup.object().shape({
     .min(8, 'Password must be must be at least 8 characters long'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Required') 
 });
 
 const Registration = () => {
