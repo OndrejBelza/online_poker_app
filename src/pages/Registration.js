@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field } from 'formik';
+import { Container, Row, Col } from "react-bootstrap";
+import Logo from "../icons/logo.svg";
 import * as Yup from 'yup';
-import "./Registration.scss";
+import "../scss/Registration.scss";
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -41,36 +43,37 @@ const Registration = () => {
   }
   return (
     <>
-      <h1>Registration</h1>
-      <div className="registrationContainer">
-        <Formik
-          initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
-          validationSchema={SignupSchema}
-          onSubmit={values =>  registerUser(values)}
-        >
-        {({ errors, touched }) => (
-          <Form className="registrationForm">
-            <div>
-              <Field name="username" placeholder="Enter username"/>
-              {errors.username && touched.username ? ( <span>{errors.username}</span> ) : null}
+      <Container className="mainContainer">
+        <Row className="rows">
+          <Col className="columns">
+            <h1 className="title">Online Poker</h1>
+            <img className="logo" alt="logo" src={Logo}/>
+          </Col>
+          <Col className="columns">
+            <div className="registrationContainer">
+              <Formik
+                initialValues={{ username: '', email: '', password: '', confirmPassword: '' }}
+                validationSchema={SignupSchema}
+                onSubmit={values =>  registerUser(values)}
+              >
+              {({ errors, touched }) => (
+                <Form className="registrationForm">
+                    <Field name="username" placeholder="Enter username"/>
+                    {errors.username && touched.username ? ( <span>{errors.username}</span> ) : <span></span>}
+                    <Field type="email" name="email" placeholder="Enter email"/>
+                    {errors.email && touched.email ? ( <span>{errors.email}</span> ) : <span></span>}
+                    <Field type="password" name="password" placeholder="Enter password"/>
+                    {errors.password && touched.password ? ( <span>{errors.password}</span> ) : <span></span>}
+                    <Field type="password" name="confirmPassword" placeholder="Confirm password"/>
+                    {errors.confirmPassword && touched.confirmPassword ? ( <span>{errors.confirmPassword}</span> ) : <span></span>}
+                  <button type="submit">Register</button>
+                </Form>
+              )}
+            </Formik>
             </div>
-            <div>
-              <Field type="email" name="email" placeholder="Enter email"/>
-              {errors.email && touched.email ? ( <span>{errors.email}</span> ) : null}
-            </div>
-            <div>
-              <Field type="password" name="password" placeholder="Enter password"/>
-              {errors.password && touched.password ? ( <span>{errors.password}</span> ) : null}
-            </div>
-            <div>
-              <Field type="password" name="confirmPassword" placeholder="Confirm password"/>
-              {errors.confirmPassword && touched.confirmPassword ? ( <span>{errors.confirmPassword}</span> ) : null}
-            </div>
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
