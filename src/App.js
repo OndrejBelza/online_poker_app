@@ -1,23 +1,25 @@
-import "./App.css";
+import "./App.scss";
 import Home from "./pages/Home";
 import Registration from "./pages/Registration/Registration";
-import Login from "./pages/Registration/Login";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import Game from "./pages/Game/Game";
+import Profile from "./pages/Profile";
+import Login from "./pages/Registration/Login";
+import Game from "./pages/Game/Game"
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   return (
-    <div className="App">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="registration" element={<Registration />} />
-          <Route path="login" element={<Login />} />
-          <Route path="game" element={<Game />} />
-        </Routes>
-      </Layout>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="login" element={<Login />} />
+        <Route path="registration" element={<Registration />} />
+        <Route path="game" element={<Game />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </Layout>
   );
 }
 

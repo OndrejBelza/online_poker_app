@@ -1,11 +1,6 @@
-#root {
-    background-color: rgba(30, 30, 30, 0.95);
-}
-.header {
-    position: fixed;
-    top: 0;
-}
-.footer {
-    position: fixed;
-    bottom: 0;
+.page-content {
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
