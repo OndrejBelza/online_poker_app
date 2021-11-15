@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field } from 'formik';
 import { Container, Row, Col } from "react-bootstrap";
-import Logo from "../icons/logo.svg";
+import Logo from "../../icons/logo.svg";
 import * as Yup from 'yup';
 
-import "../scss/Registration.scss";
+import "./Registration.scss";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),

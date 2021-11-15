@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "../../scss/Layout.scss";
+import "./Layout.scss";
 const Header = () => {
   return (
     <Container className="header">
