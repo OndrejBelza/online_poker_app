@@ -1,12 +1,14 @@
 import Footer from "./Footer";
-import Header from "./Header";
-
+import Header from "./header/Header";
+import "./Layout.scss";
 const Layout = ({ children }) => {
   return (
     <>
-      <Header />
-      {children}
-      <Footer />
+      <div className="page-content">
+        <Header />
+        <div className="content">{children}</div>
+        <Footer />
+      </div>
     </>
   );
 };

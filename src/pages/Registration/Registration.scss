@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+.registrationContainer {
+  p {
+    text-align: center;
+    color: rgb(233, 233, 233);
+  }
+  .registrationForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    span {
+      font-size: 10px;
+      color: gray;
+      height: 15px;
+    }
+    input {
+      width: 250px;
+      height: 35px;
+      margin: 5px;
+      border-radius: 5px;
+      outline: none;
+      border: transparent;
+      background-color: rgb(233, 233, 233);
+      box-shadow: 0 0 2px rgba(194, 194, 194, 0.863);
+      &:focus {
+        box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.863);
+      }
+    }
+    button {
+      height: 40px;
+      width: 100px;
+      margin: 10px;
+      border-radius: 5px;
+      outline: none;
+      border: transparent;
+      color: white;
+      background-color: #a31919;
+      box-shadow: 0 0 2px rgba(182, 182, 182, 0.356);
+      &:hover {
+        box-shadow: 0 0 2px 0.5px rgba(255, 111, 111, 0.863);
+      }
+    }
+  }
+}
+.mainContainer {
+  height: 100%;
+  min-height: 100%;
+  .rows {
+    height: 100%;
+    margin: 0 8%;
+  }
+  .columns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+      font-size: 80px;
+      text-align: center;
+      font-family: "Righteous", cursive;
+      color: rgb(233, 233, 233);
+      margin: 10px;
+      text-shadow: 0 0 3px rgba(121, 121, 121, 0.863);
+    }
+    img {
+      width: 200px;
+      margin-top: 50px;
+      filter: drop-shadow(0 0 1px rgba(121, 121, 121, 0.863));
+    }
+  }
+}
