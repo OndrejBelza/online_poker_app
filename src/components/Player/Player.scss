@@ -1,8 +1,22 @@
 .player1{
     position: absolute;
-    top: 20vh;
-    left: 20vw;
+    top: 28vh;
+    left: 15vw;
     width: 200px;
     height: 200px;
-    background-color: yellow;
+    border:none !important;
+    // background-color: yellow;
+}
+.player2{
+    position: absolute;
+    top: 60vh;
+    left: 30vw;
+    width: 200px;
+    height: 200px;
+    border:none !important;
+    // background-color: yellow;
+}
+.hand {
+    display: flex;
+    width: fit-content;
 }

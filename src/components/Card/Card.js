@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { BsFillSuitSpadeFill, BsFillSuitHeartFill, BsFillSuitDiamondFill, BsFillSuitClubFill } from "react-icons/bs"
 import "./Card.scss";
-const Card = () => {
+const Card = (props) => {
     const [ card, setCard ] = useState({
-        value: "A",
-        suit: "spades",
-        skin: "default"
+        value: props.card.value,
+        suit: props.card.suit,
+        skin: props.skin,
+        position: props.position
     }) 
 
-    useEffect(()=>{
-        document.getElementById(`${card.value}${card.suit}`).style.backgroundColor = "red"
-    },[])
+    // useEffect(()=>{
+    //     console.log(card.position)
+    // },[])
     
     return (
         <div className="cardContainer">
-            <div className="frontCard">
+            {card.position === "front" ? (
+               <div className="frontCard">
                 <p>{card.value}</p>
                 { 
                 (() => { 
@@ -23,19 +25,21 @@ const Card = () => {
                             return <BsFillSuitSpadeFill className="suit"/>
                         case "diamonds":
                            return <BsFillSuitDiamondFill className="suit"/>
-                        case "Hearts":
+                        case "hearts":
                             return<BsFillSuitHeartFill className="suit"/>
-                        case "Clubs":
+                        case "clubs":
                             return <BsFillSuitClubFill className="suit"/>
                         default:
                             return null;
                         }
                     })()
                 }
-            </div>
-            <div id={`${card.value}${card.suit}`}>
+                </div> 
+            ):(
+                <div className={`backCard ${card.skin}`} >
 
-            </div>
+                </div>
+            )}
         </div>
     );
 };
