@@ -1,0 +1,32 @@
+
+
+.home-wrapper {
+  width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  .twin-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .join-table-box {
+      width: 490px;
+      height: 597px;
+      background-image: url("../../icons/michal-parzuchowski-GikVY_KS9vQ-unsplash.jpg");
+      background-size: cover;
+      background-position: 50% 50%;
+      position: relative;
+
+      &::before {
+        background-color: rgba(0, 0, 0, 0.4);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: ' ';
+      }
+    }
+  }
+}
