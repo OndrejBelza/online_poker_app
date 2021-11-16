@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./Deck.scss";
 const Deck = (props) => {
-    const [ deck, setPlayers ] = useState(props.deck)
+    const [ deck, setDeck ] = useState(props.deck)
     return (
         <div className="deck">
             {deck.map(card=> (

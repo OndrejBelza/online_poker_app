@@ -19,6 +19,7 @@ const Game = () => {
         currentUser: "Gerardo",
         players: [{
             position: 1,
+            portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
             name: "Gerardo",
             skin: "default",
             hand: [{
@@ -32,6 +33,7 @@ const Game = () => {
         },{
             position: 2,
             name: "Taichi",
+            portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
             skin: "default",
             hand: [{
                 value: "2",

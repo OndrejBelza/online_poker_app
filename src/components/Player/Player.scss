@@ -1,22 +1,53 @@
-.player1{
-    position: absolute;
-    top: 28vh;
-    left: 15vw;
+
+.players {
     width: 200px;
     height: 200px;
     border:none !important;
-    // background-color: yellow;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .hand {
+        position: relative;
+        top: -20px;
+        display: flex;
+        width: fit-content;
+    }
+    .portrait {
+        height: 100px;
+        border-radius: 50% ;
+    }
+    .chips {
+        display: flex;
+        img {
+            height: 40px;
+        }
+    }
+    .actions {
+        display: flex;
+        button {
+            margin: 5px;
+            padding: 0;
+            border: transparent;
+            border-radius: 20px;
+            height: 30px;
+            width: 50px;
+            background-color: rgba(49, 49, 49, 0.479);
+            &:hover {
+                background-color: rgba(173, 173, 173, 0.479);
+            }
+        }
+    }
+}
+.player1{
+    top: 28vh;
+    left: 10vw;
 }
 .player2{
-    position: absolute;
     top: 60vh;
-    left: 30vw;
-    width: 200px;
-    height: 200px;
-    border:none !important;
-    // background-color: yellow;
+    left: 25vw;
 }
-.hand {
-    display: flex;
-    width: fit-content;
-}
+
+
+
