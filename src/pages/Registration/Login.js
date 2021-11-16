@@ -1,9 +1,11 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import * as Yup from "yup";
-import Logo from "../icons/logo.svg";
+import { Container, Row, Col } from "react-bootstrap";
+import Logo from "../../icons/logo.svg";
+import * as Yup from 'yup';
+
+import "./Registration.scss";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),

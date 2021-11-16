@@ -1,0 +1,22 @@
+.cardContainer {
+    position: relative;
+    width: 35px;
+    height: 45px;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+    border-radius: 5px;
+    .frontCard{
+        width: 100%;
+        height: 100%;
+        background-color: rgb(255, 247, 224);
+        p {
+            padding: 1px;
+        }
+        .suit {
+            position: absolute;
+            top: 40%;
+            left: 30%;
+        }
+    }
+}
