@@ -1,5 +1,5 @@
 import "./App.scss";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";

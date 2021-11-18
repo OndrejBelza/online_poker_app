@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import Logo from "../../icons/logo.svg";
-import * as Yup from 'yup';
+import Client from "../../utils/axiosClient";
+import * as Yup from "yup";
 
 import "./Registration.scss";
 
@@ -19,23 +20,12 @@ const Login = () => {
   // but we will not close our connection on navigation
   const socket = useSelector((state) => state.socket.socket);
 
-  const LoginUser = (credentials) => {
-    // emits register event to server
-    socket.emit("login", {
-      email: credentials.email,
-      password: credentials.password,
-    });
-
-    // listens for login result from server
-    socket.on("login_result", (result) => {
-      console.log("login result", result);
-      if (!result) {
-        setMessage("Invalid credentials");
-      } else {
-        alert("Logged in!");
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const LoginUser = async (credentials) => {
+    try {
+      const response = await Client.post("login", credentials);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <>
