@@ -6,7 +6,7 @@ const Card = (props) => {
         value: props.card.value,
         suit: props.card.suit,
         skin: props.skin,
-        position: props.position
+        display: props.display
     }) 
 
     // useEffect(()=>{
@@ -15,7 +15,7 @@ const Card = (props) => {
     
     return (
         <div className="cardContainer">
-            {card.position === "front" ? (
+            {card.display ? (
                <div className="frontCard">
                 <p>{card.value}</p>
                 { 

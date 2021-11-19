@@ -1,4 +1,3 @@
-
 .players {
     width: 200px;
     height: 200px;
@@ -14,8 +13,14 @@
         display: flex;
         width: fit-content;
     }
+    .timer{
+        position: absolute;
+        top: -35px;
+        height: 150px !important;
+        width: 150px !important;
+    }
     .portrait {
-        height: 100px;
+        height: 120px;
         border-radius: 50% ;
     }
     .chips {
@@ -48,6 +53,9 @@
     top: 60vh;
     left: 25vw;
 }
-
+.player3{
+    top: 65vh;
+    left: 45vw;
+}
 
 

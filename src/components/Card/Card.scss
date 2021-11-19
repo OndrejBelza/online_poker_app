@@ -1,8 +1,10 @@
 .cardContainer {
-    width: 34px;
-    height: 45px;
+    width: 41px;
+    height: 55px;
     border-radius: 5px;
     padding: 0 !important;
+    margin: 1px;
+    z-index: 100;
     .frontCard{
         width: inherit;
         height: inherit;

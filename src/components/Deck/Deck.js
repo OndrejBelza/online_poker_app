@@ -5,10 +5,11 @@ const Deck = (props) => {
     const [ deck, setDeck ] = useState(props.deck)
     return (
         <div className="deck">
+            {/* <p>Current Total</p> */}
             {deck.map(card=> (
-                <Card card={card} skin="default" position="front"/> 
+                <Card card={card} skin="default" display="front"/> 
             ))}
-            <Card card={{value:null,suit:null}} position="back" skin="default"/>
+            {/* <Card card={{value:null,suit:null}} position="back" skin="default"/> */}
         </div>
     );
 };

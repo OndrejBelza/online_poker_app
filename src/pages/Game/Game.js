@@ -14,6 +14,12 @@ const Game = () => {
             },{
                 value: "6",
                 suit: "spades"
+            },{
+                value: "6",
+                suit: "spades"
+            },{
+                value: "6",
+                suit: "spades"
             }]
         ,
         currentUser: "Gerardo",
@@ -36,13 +42,26 @@ const Game = () => {
             portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
             skin: "default",
             hand: [{
-                value: "2",
-                suit: "spades"
+                value: null,
+                suit: null
             },{
-                value: "K",
-                suit: "clubs"
+                value: null,
+                suit: null
             }],
             chips: 200000
+        },{
+            position: 3,
+            name: "Ondrej",
+            portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+            skin: "default",
+            hand: [{
+                value: null,
+                suit: null
+            },{
+                value: null,
+                suit: null
+            }],
+            chips: 400000
         }]
     });
     return (
