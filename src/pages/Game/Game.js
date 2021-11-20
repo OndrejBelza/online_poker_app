@@ -4,6 +4,7 @@ import "./Game.scss";
 const Game = () => {
     const [ table, setTable ] = useState({
         id: "1",
+        pot: 123810000,
         deck:
             [{
                 value: "A",
@@ -12,18 +13,19 @@ const Game = () => {
                 value: "5",
                 suit: "clubs"
             },{
-                value: "6",
-                suit: "spades"
+                value: "K",
+                suit: "hearts"
             },{
                 value: "6",
                 suit: "spades"
             },{
                 value: "6",
-                suit: "spades"
+                suit: "diamonds"
             }]
         ,
         currentUser: "Gerardo",
         players: [{
+            id: 1,
             position: 1,
             portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
             name: "Gerardo",
@@ -35,8 +37,10 @@ const Game = () => {
                 value: "A",
                 suit: "clubs"
             }],
-            chips: 100000
+            chips: 100000,
+            turn: true
         },{
+            id: 2,
             position: 2,
             name: "Taichi",
             portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
@@ -48,8 +52,10 @@ const Game = () => {
                 value: null,
                 suit: null
             }],
-            chips: 200000
+            chips: 200000,
+            turn: false
         },{
+            id: 3,
             position: 3,
             name: "Ondrej",
             portrait: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
@@ -61,7 +67,8 @@ const Game = () => {
                 value: null,
                 suit: null
             }],
-            chips: 400000
+            chips: 400000,
+            turn: false
         }]
     });
     return (

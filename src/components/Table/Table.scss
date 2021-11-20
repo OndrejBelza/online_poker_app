@@ -4,4 +4,22 @@
     height: 80vh;
     border-radius: 50%;
     margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .pot{
+        border: none !important;
+        height: fit-content;
+        text-align: center;
+        .chips {
+            display: flex;
+            padding: 10px;
+            img {
+                height: 20px;
+                padding: 0;
+            }   
+        }
+        
+    }
 }

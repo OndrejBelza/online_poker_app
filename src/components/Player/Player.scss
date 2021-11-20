@@ -1,6 +1,6 @@
 .players {
     width: 200px;
-    height: 200px;
+    height: 300px;
     border:none !important;
     position: absolute;
     display: flex;
@@ -9,24 +9,35 @@
     align-items: center;
     .hand {
         position: relative;
-        top: -20px;
+        top: -30px;
         display: flex;
         width: fit-content;
     }
-    .timer{
-        position: absolute;
-        top: -35px;
-        height: 150px !important;
-        width: 150px !important;
-    }
     .portrait {
-        height: 120px;
-        border-radius: 50% ;
+        position: relative;
+        img {
+            height: 150px;
+            border-radius: 50% ;  
+        }
+        .timer{
+            position: absolute;
+            top: 0px;
+            height: 150px !important;
+            width: 150px !important;
+        }
     }
     .chips {
         display: flex;
+        height: 20px;
+        position: relative;
+        top: -15px;
+        p {
+            padding: 0;
+            margin-left: 5px;
+        }
         img {
-            height: 40px;
+            padding: 0;
+            height: 20px;
         }
     }
     .actions {
@@ -46,15 +57,15 @@
     }
 }
 .player1{
-    top: 28vh;
+    top: 25vh;
     left: 10vw;
 }
 .player2{
-    top: 60vh;
+    top: 55vh;
     left: 25vw;
 }
 .player3{
-    top: 65vh;
+    top: 60vh;
     left: 45vw;
 }
 

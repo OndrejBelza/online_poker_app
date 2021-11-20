@@ -17,18 +17,29 @@ const Card = (props) => {
         <div className="cardContainer">
             {card.display ? (
                <div className="frontCard">
-                <p>{card.value}</p>
                 { 
                 (() => { 
                     switch(card.suit) {
                         case "spades":
-                            return <BsFillSuitSpadeFill className="suit"/>
+                            return <>
+                                <p>{card.value}</p>
+                                <BsFillSuitSpadeFill className="suit"/>
+                            </>
                         case "diamonds":
-                           return <BsFillSuitDiamondFill className="suit"/>
+                           return <>
+                            <p style={{color:"red"}}>{card.value}</p>
+                            <BsFillSuitDiamondFill color="red" className="suit"/>
+                        </>
                         case "hearts":
-                            return<BsFillSuitHeartFill className="suit"/>
+                            return <>
+                                <p style={{color:"red"}}>{card.value}</p>
+                                <BsFillSuitHeartFill color="red" className="suit"/>
+                            </>
                         case "clubs":
-                            return <BsFillSuitClubFill className="suit"/>
+                            return <>
+                                <p>{card.value}</p>
+                                <BsFillSuitClubFill className="suit"/>
+                            </>
                         default:
                             return null;
                         }
