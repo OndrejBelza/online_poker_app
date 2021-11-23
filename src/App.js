@@ -5,10 +5,28 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Profile from "./pages/Profile";
 import Login from "./pages/Registration/Login";
-import Game from "./pages/Game/Game"
+import Game from "./pages/Game/Game";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import getUser from "./utils/getUser";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/user/userSlice";
+import { useEffect } from "react";
+
+const tryFetchUser = (dispatch) => {
+  getUser()
+    .then((u) => {
+      dispatch(setUser(u));
+      return u;
+    })
+    .catch(() => {});
+};
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    tryFetchUser(dispatch);
+  }, [dispatch]);
   return (
     <Layout>
       <Routes>

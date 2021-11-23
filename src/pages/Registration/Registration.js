@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
-import { Container, Row, Col } from "react-bootstrap";
-import Logo from "../../icons/logo.svg";
+import { Field, Form, Formik } from "formik";
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import * as Yup from "yup";
+import Logo from "../../icons/logo.svg";
+import axiosClient from "../../utils/axiosClient";
 import "./Registration.scss";
-import axios from "axios";
-import client from "../../utils/axiosClient";
-
+import { setUser } from "../../redux/user/userSlice";
+import getUser from "../../utils/getUser";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
     .min(5, "Username must be at least 5 characters long")
@@ -23,15 +24,22 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Registration = () => {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
   const registerUser = async (credentials) => {
-    console.log("here", process.env.REACT_APP_SERVER_URL);
-    const response = await client.post("registration", {
+    const response = await axiosClient.post("registration", {
       username: credentials.username,
       email: credentials.email,
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
     });
-    console.log(response);
+
+    //loads user data
+    const user = await getUser();
+    dispatch(setUser(user));
+
+    //navigates to home
+    navigate("/");
   };
   return (
     <>

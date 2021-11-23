@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./Header.scss";
+import axiosClient from "../../../utils/axiosClient";
+import { setUser } from "../../../redux/user/userSlice";
 const Header = () => {
-  const [loggedIn] = useState(false);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+  const logout = async () => {
+    const response = await axiosClient.post("logout");
+    if (response.status === 200) dispatch(setUser(undefined));
+  };
 
   return (
     <>
@@ -16,19 +25,13 @@ const Header = () => {
 
           <Navbar.Collapse className="justify-content-end">
             <Nav>
-              <Nav.Link>Leader board</Nav.Link>
-              <Nav.Link>500000$</Nav.Link>
-              <Nav.Link>Settings</Nav.Link>
-              {loggedIn ? (
+              {user ? (
                 <>
+                  <Nav.Link>Leader board</Nav.Link>
+                  <Nav.Link>500000$</Nav.Link>
                   <Nav.Link>Settings</Nav.Link>
 
-                  <Nav.Link>Logout</Nav.Link>
-
-                  {/* <Navbar.Text>Signed in as: </Navbar.Text>
-                  <Nav.Link as={Link} to="profile">
-                    Mark Otto
-                  </Nav.Link> */}
+                  <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </>
               ) : (
                 <>
