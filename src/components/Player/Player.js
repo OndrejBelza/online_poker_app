@@ -21,30 +21,31 @@ const Player = (props) => {
     //Event handlers ///////////////////////////////////////
     const fold = () => {
         console.log("fold")
-        socket.emit("fold", { 
-          id: props.player.id, 
-        }); 
+        socket.emit("fold",props.player.id); 
+        socket.on("message",(message)=>{
+            console.log(message)
+        })
     };
     const check = () => {
         console.log("check")
-        socket.emit("check", { 
-          id: props.player.id, 
-        }); 
+        // socket.emit("check", { 
+        //   id: props.player.id, 
+        // }); 
     };
     const call = () => {
         console.log("call", currentBet)
-        socket.emit("call", { 
-          id: props.player.id, 
-          bet: currentBet
-        }); 
+        // socket.emit("call", { 
+        //   id: props.player.id, 
+        //   bet: currentBet
+        // }); 
     };
     const betOrRise = (value) => {
         setCurrentBet(value);
         console.log("bet/rise", value)
-        socket.emit("bet/rise", { 
-          id: props.player.id, 
-          bet: value
-        }); 
+        // socket.emit("bet/rise", { 
+        //   id: props.player.id, 
+        //   bet: value
+        // }); 
     };
     
     // Turn timer

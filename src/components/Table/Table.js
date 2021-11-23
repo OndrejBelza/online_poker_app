@@ -7,6 +7,10 @@ const Table = (props) => {
     const [ players, setPlayers ] = useState(props.table.players)
     const [ deck, setDeck ] = useState(props.table.deck)
     
+    useEffect(()=>{
+        setPlayers(props.table.players)
+    },[props.table.players])
+
     return (
         <div className="table">
             {players.map(player=> (
