@@ -5,7 +5,6 @@ const Deck = (props) => {
     const [ deck, setDeck ] = useState(props.deck)
     return (
         <div className="deck">
-            {/* <p>Current Total</p> */}
             {deck.map(card=> (
                 <Card card={card} skin="default" display="front"/> 
             ))}
