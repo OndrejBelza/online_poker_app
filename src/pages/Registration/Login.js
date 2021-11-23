@@ -1,28 +1,35 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
-import Logo from "../../icons/logo.svg";
-import Client from "../../utils/axiosClient";
+import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-
+import Logo from "../../icons/logo.svg";
+import { setUser } from "../../redux/user/userSlice";
+import Client from "../../utils/axiosClient";
+import getUser from "../../utils/getUser";
 import "./Registration.scss";
-
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string().required("Required"),
 });
 
 const Login = () => {
-  const [message, setMessage] = useState("");
+  const [message] = useState("");
 
-  // This will get socket from redux store now we can call our server
-  // but we will not close our connection on navigation
-  const socket = useSelector((state) => state.socket.socket);
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const LoginUser = async (credentials) => {
     try {
-      const response = await Client.post("login", credentials);
+      await Client.post("login", credentials);
+
+      //loads user data
+      const user = await getUser();
+      dispatch(setUser(user));
+
+      //navigates to home
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
