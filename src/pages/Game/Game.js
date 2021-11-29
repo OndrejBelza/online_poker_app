@@ -9,12 +9,7 @@ const Game = () => {
 
     useEffect(()=>{
         socket.emit("create_game","1")
-        socket.on("game_data", (data)=> {
-            setTable(data)
-            console.log("game data changed")
-            console.log(data.players)
-
-        })
+        
 
         socket.emit("join_game","1");  
         socket.on("user_has_joined", (response)=> {
@@ -22,6 +17,15 @@ const Game = () => {
         }) 
        
     },[])
+
+    useEffect(()=>{
+        socket.on("game_data", (data)=> {
+            setTable(data)
+            console.log("game data changed")
+            console.log(data.players)
+
+        })
+    },[socket])
    
 
     return (
