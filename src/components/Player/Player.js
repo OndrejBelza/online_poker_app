@@ -13,53 +13,55 @@ const Player = (props) => {
     const [ timer, setTimer ] = useState(20)
     const [ currentBet, setCurrentBet ] = useState(0);
     const [ value, setValue ] = useState(100);
-    const [ turn, setTurn ] = useState(props.player.turn);
+    // const [ turn, setTurn ] = useState(props.player.turn);
     
     const socket = useSelector((state) => state.socket.socket);
-
 
     //Event handlers ///////////////////////////////////////
     const fold = () => {
         console.log("fold")
         socket.emit("fold",props.player.id); 
-        socket.on("message",(message)=>{
-            console.log(message)
-        })
     };
     const check = () => {
-        console.log("check")
-        // socket.emit("check", { 
-        //   id: props.player.id, 
-        // }); 
+        console.log("check",props.player.id)
+        socket.emit("check",props.player.id); 
     };
     const call = () => {
         console.log("call", currentBet)
-        // socket.emit("call", { 
-        //   id: props.player.id, 
-        //   bet: currentBet
-        // }); 
+        socket.emit("call",props.player.id); 
     };
     const betOrRise = (value) => {
         setCurrentBet(value);
         console.log("bet/rise", value)
-        // socket.emit("bet/rise", { 
-        //   id: props.player.id, 
-        //   bet: value
-        // }); 
+        socket.emit("bet/rise",{
+            id:props.player.id,
+            value
+        }); 
     };
     
     // Turn timer
+
     useEffect(()=>{
-        if (turn) {
+        if (props.player.turn) {
+            console.log("timer:", timer)
             if (timer > 0) {
                 setTimeout(function(){
-                 setTimer(timer-1)
-                 },1000) 
-             } else {
-                fold()
-             }
-        } 
-    },[timer],[turn])
+                    setTimer(timer-1)
+                },1000) 
+            } else {
+                fold();
+                setTimer(20)
+            }
+        }
+    },[timer])
+
+    useEffect(()=>{
+        if (props.player.turn){
+            setTimer(20)
+        } else {
+            setTimer(undefined)
+        }
+    },[props.player.turn])
 
     // Display current user
     useEffect(()=>{
@@ -71,12 +73,12 @@ const Player = (props) => {
     },[])
 
     useEffect(()=>{
-        if (!turn && display) {
-            document.getElementById("fold").disabled = true;
-            document.getElementById("rise/bet").disabled = true;
-            document.getElementById("check/call").disabled = true;
+        if (typeof props.player.turn === 'boolean') {
+            document.getElementById(`fold${props.player.id}`).disabled = !props.player.turn;
+            document.getElementById(`rise/bet${props.player.id}`).disabled = !props.player.turn;
+            document.getElementById(`check/call${props.player.id}`).disabled = !props.player.turn;
         }
-    },[display])
+    },[props.player.turn])
 
     
     // Need to add display current action
@@ -152,29 +154,29 @@ const Player = (props) => {
                 <p>${props.player.chips}</p>
             </div>
 
-            {display ? (
+            {/* {display ? ( */}
             <>
             <div className="actions">
-                <button id="fold" onClick={()=>fold()} >Fold</button>
+                <button id={`fold${props.player.id}`} onClick={()=>fold()} >Fold</button>
                 {currentBet === 0 ? (
                     <>
-                    <button id="check/call" onClick={()=>check()} >Check</button>
+                    <button id={`check/call${props.player.id}`} onClick={()=>check()} >Check</button>
                     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                        <button id="rise/bet" >Bet</button>
+                        <button id={`rise/bet${props.player.id}`}>Bet</button>
                     </OverlayTrigger>
                     </>
                 ):(
                     <>
-                    <button id="check/call" onClick={()=>call()} >Call</button>
+                    <button id={`check/call${props.player.id}`} onClick={()=>call()} >Call</button>
                     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                        <button id="rise/bet" >Rise</button>
+                        <button id={`rise/bet${props.player.id}`} >Rise</button>
                     </OverlayTrigger>
                     </>
                 )}
                 
             </div>
             </>
-            ):(null)}
+            {/* ):(null)} */}
             
         </div>
     );
