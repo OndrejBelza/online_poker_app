@@ -9,13 +9,16 @@ import { CircularProgress, Input } from "@mui/material";
 
 const Player = (props) => {
     const [ display, setDisplay ] = useState(undefined);
-    const [ user, setUser] = useState(props.user);
     const [ timer, setTimer ] = useState(20)
-    const [ currentBet, setCurrentBet ] = useState(0);
-    const [ value, setValue ] = useState(100);
-    // const [ turn, setTurn ] = useState(props.player.turn);
+    const [ value, setValue ] = useState(props.table.currentBet-props.player.bet);
+    const [ action, setAction ] = useState();
     
     const socket = useSelector((state) => state.socket.socket);
+
+
+    useEffect(()=>{
+        console.log(props.table.currentBet)
+    },[props])
 
     //Event handlers ///////////////////////////////////////
     const fold = () => {
@@ -23,15 +26,23 @@ const Player = (props) => {
         socket.emit("fold",props.player.id); 
     };
     const check = () => {
+        setAction("check");
         console.log("check",props.player.id)
         socket.emit("check",props.player.id); 
     };
     const call = () => {
-        console.log("call", currentBet)
+        setAction("call");
+        console.log("call", props.table.currentBet)
         socket.emit("call",props.player.id); 
     };
     const betOrRise = (value) => {
-        setCurrentBet(value);
+        if (props.table.currentBet > 0) {
+            setAction("rise");
+        } else {
+            setAction("bet")
+        }
+        
+        // setPlayerBet(value);
         console.log("bet/rise", value)
         socket.emit("bet/rise",{
             id:props.player.id,
@@ -43,7 +54,6 @@ const Player = (props) => {
 
     useEffect(()=>{
         if (props.player.turn) {
-            console.log("timer:", timer)
             if (timer > 0) {
                 setTimeout(function(){
                     setTimer(timer-1)
@@ -65,7 +75,7 @@ const Player = (props) => {
 
     // Display current user
     useEffect(()=>{
-        if (props.player.name === user) {
+        if (props.player.name === props.table.currentUser) {
             setDisplay(true)
         } else {
             setDisplay(false)
@@ -107,7 +117,7 @@ const Player = (props) => {
             <Slider
                 value={value}
                 step={1000} 
-                min={currentBet} 
+                min={props.table.currentBet-props.player.bet} 
                 max={props.player.chips}
                 onChange={handleSliderChange}
                 aria-labelledby="input-slider"
@@ -119,7 +129,7 @@ const Player = (props) => {
                 onBlur={handleBlur}
                 inputProps={{
                     step: 1000,
-                    min: currentBet,
+                    min: (props.table.currentBet-props.player.bet),
                     max: props.player.chips,
                     type: 'number',
                     'aria-labelledby': 'input-slider',
@@ -133,6 +143,16 @@ const Player = (props) => {
     return (
         
         <div className={`players player${props.player.position}`}>
+
+            {action ? (
+                <div className="currentAction">
+                    <span>{action}</span>
+                    {props.player.bet ? (
+                        <span>{props.player.bet}</span>
+                    ):(null)}
+                </div>
+            ):(null)}
+            
             <h5>{props.player.name}</h5>
             <div className="portrait">
                 {props.player.turn ? (
@@ -158,7 +178,7 @@ const Player = (props) => {
             <>
             <div className="actions">
                 <button id={`fold${props.player.id}`} onClick={()=>fold()} >Fold</button>
-                {currentBet === 0 ? (
+                {props.table.currentBet === 0 ? (
                     <>
                     <button id={`check/call${props.player.id}`} onClick={()=>check()} >Check</button>
                     <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>

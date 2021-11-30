@@ -4,17 +4,11 @@ import Deck from "../Deck/Deck";
 import Chips from "../../icons/poker-chips.png";
 import "./Table.scss";
 const Table = (props) => {
-    const [ players, setPlayers ] = useState(props.table.players)
-    const [ deck, setDeck ] = useState(props.table.deck)
-    
-    useEffect(()=>{
-        setPlayers(props.table.players)
-    },[props.table.players])
 
     return (
         <div className="table">
-            {players.map(player=> (
-                <Player player={player} user={props.table.currentUser}/> 
+            {props.table.players.map(player=> (
+                <Player player={player} table={props.table}/> 
             ))}
             <div className="pot">
                 <div className="chips">
@@ -26,7 +20,7 @@ const Table = (props) => {
                 <p>${props.table.pot}</p>
             </div>
             
-            <Deck deck={deck}/>
+            <Deck deck={props.table.deck}/>
         </div>
     );
 };
