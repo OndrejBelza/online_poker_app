@@ -1,5 +1,21 @@
-.game {
-    width: 100vw;
-    height: 100vh;
-    background-color: white;
+.gamebackground{
+    background-image: url("../../icons/casinobg.jpg");
+    background-size: cover;
+    height: 100%;
+    .game {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.856);
+        .leaveTable {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 50px;
+            color: rgb(218, 236, 58);
+        }
+    }
 }

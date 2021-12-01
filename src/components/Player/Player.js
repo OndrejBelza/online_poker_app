@@ -3,9 +3,12 @@ import Card from "../Card/Card";
 import Chips from "../../icons/poker-chips.png";
 import "./Player.scss";
 import { useSelector } from "react-redux";
-import { OverlayTrigger, Popover, ProgressBar } from "react-bootstrap";
+import { OverlayTrigger, Popover } from "react-bootstrap";
 import Slider from '@mui/material/Slider';
 import { CircularProgress, Input } from "@mui/material";
+import { BsCheckLg } from "react-icons/bs";
+import { ImCross } from "react-icons/im";
+import { GoArrowUp } from "react-icons/go";
 
 const Player = (props) => {
     const [ display, setDisplay ] = useState(undefined);
@@ -162,8 +165,8 @@ const Player = (props) => {
             </div>
             <div className="hand">
             {typeof display === 'boolean' ? (
-                props.player.hand.map(card=>(
-                <Card card={card} skin={props.player.skin} display={display}/>
+                props.player.hand.map((card,index)=>(
+                <Card key={props.player.id + index} card={card} skin={props.player.skin} display={display}/>
                 ))
             ):(null)
             }
@@ -177,20 +180,35 @@ const Player = (props) => {
             {/* {display ? ( */}
             <>
             <div className="actions">
-                <button id={`fold${props.player.id}`} onClick={()=>fold()} >Fold</button>
+                <div>
+                    <button id={`fold${props.player.id}`} onClick={()=>fold()} ><ImCross/></button>
+                    <p>Fold</p>
+                </div>
                 {props.table.currentBet === 0 ? (
                     <>
-                    <button id={`check/call${props.player.id}`} onClick={()=>check()} >Check</button>
-                    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                        <button id={`rise/bet${props.player.id}`}>Bet</button>
-                    </OverlayTrigger>
+                    <div>
+                        <button id={`check/call${props.player.id}`} onClick={()=>check()} ><BsCheckLg/></button>
+                        <p>Check</p>
+                    </div>
+                    <div>
+                        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                            <button id={`rise/bet${props.player.id}`}><GoArrowUp/></button>
+                        </OverlayTrigger>
+                        <p>Bet</p>
+                    </div>
                     </>
                 ):(
                     <>
-                    <button id={`check/call${props.player.id}`} onClick={()=>call()} >Call</button>
-                    <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                        <button id={`rise/bet${props.player.id}`} >Rise</button>
-                    </OverlayTrigger>
+                    <div>
+                        <button id={`check/call${props.player.id}`} onClick={()=>call()} >C</button>
+                        <p>Call</p>
+                    </div>
+                    <div>
+                        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+                            <button id={`rise/bet${props.player.id}`} ><GoArrowUp/></button>
+                        </OverlayTrigger>
+                        <p>Rise</p>
+                    </div>
                     </>
                 )}
                 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { BsFillSuitSpadeFill, BsFillSuitHeartFill, BsFillSuitDiamondFill, BsFillSuitClubFill } from "react-icons/bs"
 import "./Card.scss";
 const Card = (props) => {
@@ -13,22 +13,26 @@ const Card = (props) => {
                         case "spades":
                             return <>
                                 <p>{props.card.value}</p>
-                                <BsFillSuitSpadeFill className="suit"/>
+                                <BsFillSuitSpadeFill color="black" className="suit"/>
+                                <BsFillSuitSpadeFill color="black" className="suit2"/>
                             </>
                         case "diamonds":
                            return <>
                             <p style={{color:"red"}}>{props.card.value}</p>
                             <BsFillSuitDiamondFill color="red" className="suit"/>
+                            <BsFillSuitDiamondFill color="red" className="suit2"/>
                         </>
                         case "hearts":
                             return <>
                                 <p style={{color:"red"}}>{props.card.value}</p>
                                 <BsFillSuitHeartFill color="red" className="suit"/>
+                                <BsFillSuitHeartFill color="red" className="suit2"/>
                             </>
                         case "clubs":
                             return <>
                                 <p>{props.card.value}</p>
-                                <BsFillSuitClubFill className="suit"/>
+                                <BsFillSuitClubFill color="black" className="suit"/>
+                                <BsFillSuitClubFill color="black" className="suit2"/>
                             </>
                         default:
                             return null;

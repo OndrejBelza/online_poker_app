@@ -1,29 +1,32 @@
 .players {
-    width: 200px;
-    height: 300px;
+    width: 150px;
+    height: 200px;
     border:none !important;
     position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    h5{
+        color: white;
+    }
     .hand {
         position: relative;
-        top: -30px;
+        top: -25px;
         display: flex;
         width: fit-content;
     }
     .portrait {
         position: relative;
         img {
-            height: 150px;
+            height: 100px;
             border-radius: 50% ;  
         }
         .timer{
             position: absolute;
             top: 0px;
-            height: 150px !important;
-            width: 150px !important;
+            height: 100px !important;
+            width: 100px !important;
         }
     }
     .chips {
@@ -34,6 +37,7 @@
         p {
             padding: 0;
             margin-left: 5px;
+            color: white;
         }
         img {
             padding: 0;
@@ -42,31 +46,43 @@
     }
     .actions {
         display: flex;
+       
+        p {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
         button {
-            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3px;
             padding: 0;
             border: transparent;
             border-radius: 20px;
-            height: 30px;
-            width: 50px;
-            background-color: rgba(49, 49, 49, 0.479);
+            height: 25px;
+            width: 25px;
+            background-color: rgba(255, 255, 255, 0.747);
             &:hover {
-                background-color: rgba(173, 173, 173, 0.479);
+                background-color: rgba(255, 255, 255, 0.945);
+            } 
+            svg {
+                height: 16px;
             }
         }
     }
 }
 .player1{
-    top: 25vh;
-    left: 10vw;
+    top: 35%;
+    left: -10%;
 }
 .player2{
-    top: 55vh;
-    left: 25vw;
+    top: 70%;
+    left: 15%;
 }
 .player3{
-    top: 60vh;
-    left: 45vw;
+    top: 75%;
+    left: 40%;
 }
 
 
