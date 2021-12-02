@@ -8,6 +8,7 @@ import Login from "./pages/Registration/Login";
 import Game from "./pages/Game/Game";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import getUser from "./utils/getUser";
+import LeaderBoard from "./pages/LeaderBoard/LeaderBoard";
 import { useDispatch } from "react-redux";
 import { setUser } from "./redux/user/userSlice";
 import { useEffect } from "react";
@@ -35,6 +36,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
         <Route path="game" element={<Game />} />
+        <Route path="leaderboard" element={<LeaderBoard />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Layout>
