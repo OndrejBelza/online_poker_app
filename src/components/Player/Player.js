@@ -3,9 +3,9 @@ import Card from "../Card/Card";
 import Chips from "../../icons/poker-chips.png";
 import "./Player.scss";
 import { useSelector } from "react-redux";
-import { OverlayTrigger, Popover } from "react-bootstrap";
+import { OverlayTrigger, Popover, Overlay } from "react-bootstrap";
 import Slider from '@mui/material/Slider';
-import { CircularProgress, Input } from "@mui/material";
+import { CircularProgress, Input, stepClasses } from "@mui/material";
 import { BsCheckLg } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
 import { GoArrowUp } from "react-icons/go";
@@ -15,6 +15,11 @@ const Player = (props) => {
     const [ timer, setTimer ] = useState(20)
     const [ value, setValue ] = useState(props.table.currentBet-props.player.bet);
     const [ action, setAction ] = useState();
+    const [show, setShow] = useState(false);
+    const [target, setTarget] = useState(null);
+    // const ref = useRef(null);
+  
+   
     
     const socket = useSelector((state) => state.socket.socket);
 
@@ -52,6 +57,9 @@ const Player = (props) => {
             value
         }); 
     };
+    const allIn = () => {
+        setValue(props.player.chips)
+    }
     
     // Turn timer
 
@@ -78,7 +86,7 @@ const Player = (props) => {
 
     // Display current user
     useEffect(()=>{
-        if (props.player.name === props.table.currentUser) {
+        if (props.player.id === props.table.currentUser) {
             setDisplay(true)
         } else {
             setDisplay(false)
@@ -86,7 +94,7 @@ const Player = (props) => {
     },[])
 
     useEffect(()=>{
-        if (typeof props.player.turn === 'boolean') {
+        if (typeof props.player.turn === 'boolean' && display) {
             document.getElementById(`fold${props.player.id}`).disabled = !props.player.turn;
             document.getElementById(`rise/bet${props.player.id}`).disabled = !props.player.turn;
             document.getElementById(`check/call${props.player.id}`).disabled = !props.player.turn;
@@ -113,72 +121,97 @@ const Player = (props) => {
     }
     };
     // Betting popover
-    const popover = (
-        <Popover id="popover-positioned-top">
-          <Popover.Header as="h3">Select the amount</Popover.Header>
-          <Popover.Body>
-            <Slider
-                value={value}
-                step={1000} 
-                min={props.table.currentBet-props.player.bet} 
-                max={props.player.chips}
-                onChange={handleSliderChange}
-                aria-labelledby="input-slider"
-            />
-            <Input
-                value={value}
-                size="small"
-                onChange={handleInputChange}
-                onBlur={handleBlur}
-                inputProps={{
-                    step: 1000,
-                    min: (props.table.currentBet-props.player.bet),
-                    max: props.player.chips,
-                    type: 'number',
-                    'aria-labelledby': 'input-slider',
-                }}
-            />
-            <button onClick={()=>betOrRise(value)}>Confirm</button>
-          </Popover.Body>
-        </Popover>
-      );
+
+    const handleClick = (event) => {
+        setShow(!show);
+        setTarget(event.target);
+      };
+    const popover =
+        <Overlay
+            show={show}
+            target={target}
+        >
+            <Popover id="popover-positioned-top" show={show}>
+            <Popover.Header as="h3">Select the amount</Popover.Header>
+            <Popover.Body>
+                <Slider
+                    value={value}
+                    step={1000} 
+                    min={props.table.currentBet-props.player.bet} 
+                    max={props.player.chips}
+                    onChange={handleSliderChange}
+                    aria-labelledby="input-slider"
+                />
+                <Input
+                    value={value}
+                    size="small"
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    inputProps={{
+                        step: 1000,
+                        min: (props.table.currentBet-props.player.bet),
+                        max: props.player.chips,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider',
+                    }}
+                />
+                <button onClick={()=>allIn()}>All In</button>
+                <button onClick={()=>{
+                    betOrRise(value);
+                    setShow(false)
+                    }} >Confirm</button>
+            </Popover.Body>
+            </Popover>
+        </Overlay>
 
     return (
         
         <div className={`players player${props.player.position}`}>
-
-            {action ? (
-                <div className="currentAction">
-                    <span>{action}</span>
-                    {props.player.bet ? (
-                        <span>{props.player.bet}</span>
+            <div className="playerContainer">
+                <h5>{props.player.name}</h5>
+                <div className="portrait">
+                    {props.player.turn ? (
+                    <CircularProgress className="timer" variant="determinate" value={timer*5} /> 
                     ):(null)}
+                    <img src={props.player.portrait}/>
                 </div>
-            ):(null)}
-            
-            <h5>{props.player.name}</h5>
-            <div className="portrait">
-                {props.player.turn ? (
-                <CircularProgress className="timer" variant="determinate" value={timer*5} /> 
-                ):(null)}
-                <img src={props.player.portrait}/>
-            </div>
-            <div className="hand">
-            {typeof display === 'boolean' ? (
-                props.player.hand.map((card,index)=>(
-                <Card key={props.player.id + index} card={card} skin={props.player.skin} display={display}/>
-                ))
-            ):(null)
-            }
-            </div>
+                <div className="hand">
+                {typeof display === 'boolean' ? (
+                    props.player.hand.map((card,index)=>(
+                    <Card key={props.player.id + index} card={card} skin={props.player.skin} display={display}/>
+                    ))
+                ):(null)
+                }
+                </div>
 
-            <div className="chips">
-                <img src={Chips}/>
-                <p>${props.player.chips}</p>
+                <div className="chips">
+                    <img src={Chips}/>
+                    <p>${props.player.chips}</p>
+                </div>
             </div>
-
-            {/* {display ? ( */}
-            <>
+            <div className="currentAction">
+                { 
+                (() => { 
+                switch(action) {
+                    case "check":
+                        return <BsCheckLg/>
+                    case "call":
+                        return <span>C</span>
+                    case "fold":
+                        return <ImCross/>
+                    case "bet"||"rise":
+                        return <GoArrowUp/>
+                    default:
+                        return null;
+                    }
+                })()
+                }{
+                props.player.bet ? (
+                    <span>${props.player.bet}</span>
+                ):(null) 
+                }
+                </div>
+            {display ? (
             <div className="actions">
                 <div>
                     <button id={`fold${props.player.id}`} onClick={()=>fold()} ><ImCross/></button>
@@ -191,10 +224,9 @@ const Player = (props) => {
                         <p>Check</p>
                     </div>
                     <div>
-                        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                            <button id={`rise/bet${props.player.id}`}><GoArrowUp/></button>
-                        </OverlayTrigger>
+                            <button id={`rise/bet${props.player.id}`} onClick={handleClick}><GoArrowUp /></button>
                         <p>Bet</p>
+                        {popover}
                     </div>
                     </>
                 ):(
@@ -204,17 +236,14 @@ const Player = (props) => {
                         <p>Call</p>
                     </div>
                     <div>
-                        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
-                            <button id={`rise/bet${props.player.id}`} ><GoArrowUp/></button>
-                        </OverlayTrigger>
+                            <button id={`rise/bet${props.player.id}`} onClick={handleClick}><GoArrowUp/></button>
                         <p>Rise</p>
+                        {popover}
                     </div>
                     </>
                 )}
-                
             </div>
-            </>
-            {/* ):(null)} */}
+            ):(null)}
             
         </div>
     );
