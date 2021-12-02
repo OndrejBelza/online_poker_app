@@ -1,0 +1,66 @@
+@import "../../color.scss";
+
+.lb-wrapper {
+  width: calc(100% - 240px);
+  margin: 0 120px;
+  padding-top: 45px;
+
+  .lb-header-wrapper {
+    width: 360px;
+    margin: 0 auto 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .lb-header {
+      color: white;
+    }
+
+    .leaderboard-icon {
+      background-image: url("../../icons/leaderboard-icon.png");
+      background-size: 100% 100%;
+      width: 107px;
+      height: 76px;
+    }
+  }
+
+  .lb-table {
+    width: 100%;
+
+    .lb-table-header {
+      background-color: $background-brown;
+      padding: 7px 0;
+      font-size: 30px;
+      margin-bottom: 33px;
+
+      .lb-table-header-list {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .lb-table-header-item {
+          width: 25%;
+          text-align: center;
+        }
+      }
+    }
+
+    .lb-user-list-wrapper {
+      background-color: $background-brown;
+      padding: 7px 0;
+      font-size: 20px;
+      margin-bottom: 15px;
+
+      .lb-user-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .lb-user-item {
+          width: 25%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
