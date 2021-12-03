@@ -17,16 +17,15 @@ const Player = (props) => {
     const [ action, setAction ] = useState();
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
-    // const ref = useRef(null);
   
    
     
     const socket = useSelector((state) => state.socket.socket);
 
 
-    useEffect(()=>{
-        console.log(props.table.currentBet)
-    },[props])
+    // useEffect(()=>{
+    //     console.log(props.table.currentBet)
+    // },[props])
 
     //Event handlers ///////////////////////////////////////
     const fold = () => {
