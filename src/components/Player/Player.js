@@ -14,7 +14,7 @@ const Player = (props) => {
     const [ display, setDisplay ] = useState(undefined);
     const [ timer, setTimer ] = useState(20)
     const [ value, setValue ] = useState(props.table.currentBet-props.player.bet);
-    const [ action, setAction ] = useState();
+    // const [ action, setAction ] = useState();
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
   
@@ -33,21 +33,16 @@ const Player = (props) => {
         socket.emit("fold",props.player.id); 
     };
     const check = () => {
-        setAction("check");
+
         console.log("check",props.player.id)
         socket.emit("check",props.player.id); 
     };
     const call = () => {
-        setAction("call");
+
         console.log("call", props.table.currentBet)
         socket.emit("call",props.player.id); 
     };
     const betOrRise = (value) => {
-        if (props.table.currentBet > 0) {
-            setAction("rise");
-        } else {
-            setAction("bet")
-        }
         
         // setPlayerBet(value);
         console.log("bet/rise", value)
@@ -76,6 +71,12 @@ const Player = (props) => {
     },[timer])
 
     useEffect(()=>{
+        console.log(props.player.current_action)
+        if (props.player.current_action === "fold") {
+            document.getElementById(`player${props.player.position}`).style.opacity = 0.3;
+        } else {
+            document.getElementById(`player${props.player.position}`).style.opacity = 1;
+        }
         if (props.player.turn){
             setTimer(20)
         } else {
@@ -164,8 +165,8 @@ const Player = (props) => {
         </Overlay>
 
     return (
-        
-        <div className={`players player${props.player.position}`}>
+
+        <div id={`player${props.player.position}`} className="players">
             <div className="playerContainer">
                 <h5>{props.player.name}</h5>
                 <div className="portrait">
@@ -191,14 +192,14 @@ const Player = (props) => {
             <div className="currentAction">
                 { 
                 (() => { 
-                switch(action) {
+                switch(props.player.current_action) {
                     case "check":
                         return <BsCheckLg/>
                     case "call":
                         return <span>C</span>
                     case "fold":
                         return <ImCross/>
-                    case "bet"||"rise":
+                    case "bet/rise":
                         return <GoArrowUp/>
                     default:
                         return null;
