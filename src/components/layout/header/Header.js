@@ -31,7 +31,9 @@ const Header = () => {
                     Leader board
                   </Nav.Link>
                   <Nav.Link>500000$</Nav.Link>
-                  <Nav.Link>Settings</Nav.Link>
+                  <Nav.Link as={Link} to="profile">
+                    Settings
+                  </Nav.Link>
 
                   <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </>
