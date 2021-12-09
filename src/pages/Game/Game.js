@@ -16,27 +16,28 @@ const Game = () => {
     const [ table, setTable ] = useState();
 
 
-
     useEffect(()=>{
         console.log(id)
         socket.emit("get_game_data", id)
-        socket.on("game_data", (data)=> {
-            setTable(data)
-        })
     },[])
 
     useEffect(()=>{
+        socket.on("user_has_joined", (username)=> {
+            console.log(username)
+            socket.emit("get_game_data", id)
+        }) 
+        socket.on("user_has_left", (res) => {
+            console.log(res);
+            socket.emit("get_game_data", id)
+          });
         socket.on("game_data", (data)=> {
             console.log(data)
             setTable(data)
-            console.log("game data changed")
-            console.log(data.players)
-
         })
     },[socket])
    
     const leaveTable = () => {
-        socket.emit("leave_table")
+        socket.emit("leave_table",id)
         navigate('/')
     }
 
@@ -45,7 +46,7 @@ const Game = () => {
         {table ? (
             <div className="game">
                 <IoMdExit onClick={()=>leaveTable()} className="leaveTable"/>
-                <Table table={table} />
+                {/* <Table table={table} /> */}
             </div>
         ):(null)}
         </div>

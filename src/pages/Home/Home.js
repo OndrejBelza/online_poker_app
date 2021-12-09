@@ -14,17 +14,18 @@ const Home = () => {
   const joinGame = (id) => {
     console.log(id)
     socket.emit("join_game", id)
-    socket.on("user_has_joined", (roomId)=> {
+    socket.on("room_joined", (roomId)=> {
       navigate(`/game/${roomId}`)
     }) 
   }
 
   const createGame = (value) => {
-    const privacy = document.getElementById("public").checked ? "public" : "private";
-    console.log({value,privacy})
-    socket.emit("create_game", {value,privacy})
-    socket.on("game_created", (id)=> {
-        joinGame(id)
+    const privacy = document.getElementById("public").checked ? "PUBLIC" : "PRIVATE";
+    // console.log({value,privacy})
+    // socket.emit("create_game", {value,privacy})
+    socket.emit("create_game",privacy)
+    socket.on("game_created", (res)=> {
+        joinGame(res.id)
     })
   }
 
@@ -40,21 +41,21 @@ const Home = () => {
                 <p>Mix/Max Buy-in</p>
               </div>
               <div className="stake-box">
-                <div className="stake-inside-flex" onClick={()=>createGame(1)}>
+                <div className="stake-inside-flex" onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
                     <p>1k</p>
                   </div>
                   <p>20k/100k</p>
                 </div>
-                <div className="stake-inside-flex"onClick={()=>createGame(10)}>
+                <div className="stake-inside-flex"onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
                     <p>10k</p>
                   </div>
                   <p>200k/1M</p>
                 </div>
-                <div className="stake-inside-flex"onClick={()=>createGame(100)}>
+                <div className="stake-inside-flex"onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
                     <p>100k</p>
