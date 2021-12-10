@@ -13,7 +13,7 @@ const Game = () => {
     const { id } = useParams();
 
 
-    const [ table, setTable ] = useState();
+    const [ table, setTable ] = useState(null);
 
 
     useEffect(()=>{
@@ -34,6 +34,7 @@ const Game = () => {
             console.log(data)
             setTable(data)
         })
+
     },[socket])
    
     const leaveTable = () => {
@@ -41,12 +42,18 @@ const Game = () => {
         navigate('/')
     }
 
+    const startGame = () => {
+        socket.emit("start_game", id)
+        console.log("start")
+    }
+
     return (
         <div className="gamebackground">
         {table ? (
             <div className="game">
                 <IoMdExit onClick={()=>leaveTable()} className="leaveTable"/>
-                {/* <Table table={table} /> */}
+                <Table table={table} />
+                <button style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button>
             </div>
         ):(null)}
         </div>

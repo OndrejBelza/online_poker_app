@@ -9,11 +9,11 @@ const Table = (props) => {
 
     const socket = useSelector((state) => state.socket.socket);
 
-    const [ chips, setChips ] = useState([]);
+    // const [ chips, setChips ] = useState([]);
 
-    useEffect(()=>{
-        setChips([...chips,])
-    },[props.table.pot])
+    // useEffect(()=>{
+    //     setChips([...chips,])
+    // },[props.table.pot])
 
     return (
         <div className="table">
