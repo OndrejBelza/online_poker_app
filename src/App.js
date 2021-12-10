@@ -3,7 +3,8 @@ import Home from "./pages/Home/Home";
 import Registration from "./pages/Registration/Registration";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
+import EditProfile from "./pages/profile/EditProfile";
 import Login from "./pages/Registration/Login";
 import Game from "./pages/Game/Game";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="edit_profile" element={<EditProfile />} />
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
         <Route path="/game/:id" element={<Game />} />
