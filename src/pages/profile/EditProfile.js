@@ -42,13 +42,13 @@ const EditProfile = () => {
         <div className="profile-edit-form-wrapper">
           <Formik
             initialValues={{
-              name: user.username,
+              username: user.username,
               email: user.email,
               currentPassword: "",
               newPassword: "",
             }}
             validationSchema={EditProfileSchema}
-            onSubmit={(values) => EditProfile(values)}
+            onSubmit={(values) => editUser(values)}
           >
             {({ errors, touched }) => (
               <Form className="profile-edit-form">
