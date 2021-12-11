@@ -9,7 +9,7 @@ import { setUser } from "../../redux/user/userSlice";
 import "./EditProfile.scss";
 
 const EditProfileSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
+  username: Yup.string().required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   currentPassword: Yup.string().required("Required"),
   newPassword: Yup.string().required("Required"),
@@ -52,17 +52,17 @@ const EditProfile = () => {
           >
             {({ errors, touched }) => (
               <Form className="profile-edit-form">
-                <label htmlFor="name" className="profile-edit-form-label">
-                  Name
+                <label htmlFor="username" className="profile-edit-form-label">
+                  User Name
                 </label>
                 <Field
                   type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Enter your name"
+                  name="username"
+                  id="username"
+                  placeholder="Enter username"
                 />
-                {errors.name && touched.name ? (
-                  <span>{errors.name}</span>
+                {errors.username && touched.username ? (
+                  <span>{errors.username}</span>
                 ) : (
                   <span></span>
                 )}
