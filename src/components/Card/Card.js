@@ -1,34 +1,34 @@
 // import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BsFillSuitSpadeFill, BsFillSuitHeartFill, BsFillSuitDiamondFill, BsFillSuitClubFill } from "react-icons/bs"
 import "./Card.scss";
 const Card = (props) => {
-    
     return (
         <div className="cardContainer">
-            {props.display ? (
+            {props.card.value ? (
                <div className="frontCard">
                 { 
                 (() => { 
                     switch(props.card.suit) {
-                        case "spades":
+                        case "Spades":
                             return <>
                                 <p>{props.card.value}</p>
                                 <BsFillSuitSpadeFill color="black" className="suit"/>
                                 <BsFillSuitSpadeFill color="black" className="suit2"/>
                             </>
-                        case "diamonds":
+                        case "Diamonds":
                            return <>
                             <p style={{color:"red"}}>{props.card.value}</p>
                             <BsFillSuitDiamondFill color="red" className="suit"/>
                             <BsFillSuitDiamondFill color="red" className="suit2"/>
                         </>
-                        case "hearts":
+                        case "Hearts":
                             return <>
                                 <p style={{color:"red"}}>{props.card.value}</p>
                                 <BsFillSuitHeartFill color="red" className="suit"/>
                                 <BsFillSuitHeartFill color="red" className="suit2"/>
                             </>
-                        case "clubs":
+                        case "Clubs":
                             return <>
                                 <p>{props.card.value}</p>
                                 <BsFillSuitClubFill color="black" className="suit"/>
@@ -41,7 +41,7 @@ const Card = (props) => {
                 }
                 </div> 
             ):(
-                <div className={`backCard ${props.skin}`} >
+                <div className={`backCard default`} >
 
                 </div>
             )}

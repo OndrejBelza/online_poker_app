@@ -30,7 +30,7 @@ const Table = (props) => {
                 <p>${props.table.pot}</p>
             </div>
             
-            <Deck deck={props.table.deck}/>
+            <Deck deck={props.table.cardsOnTable}/>
         </div>
     );
 };

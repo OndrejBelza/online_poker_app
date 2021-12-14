@@ -17,7 +17,6 @@ const Game = () => {
 
 
     useEffect(()=>{
-        console.log(id)
         socket.emit("get_game_data", id)
     },[])
 
@@ -33,6 +32,18 @@ const Game = () => {
         socket.on("game_data", (data)=> {
             console.log(data)
             setTable(data)
+        })
+        socket.on("game_started", () => {
+            console.log(`game started and user is requesting data`)
+            socket.emit("get_game_data", id)
+        })
+        socket.on("round_started", () => {
+            console.log("round started")
+            socket.emit("get_game_data", id)
+        })
+        socket.on("player_action", () => {
+            console.log("player did a move")
+            socket.emit("get_game_data", id)
         })
 
     },[socket])

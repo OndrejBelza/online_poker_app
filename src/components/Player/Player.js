@@ -18,7 +18,7 @@ const Player = (props) => {
     // const [ action, setAction ] = useState();
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
-    const [ card, setCard ] = useState([])
+
   
    
     
@@ -27,23 +27,24 @@ const Player = (props) => {
     //Event handlers ///////////////////////////////////////
     const fold = () => {
         console.log("fold")
-        socket.emit("fold",props.player.id); 
+        socket.emit("fold",{roomId:props.table.id, id:props.player.id}); 
     };
     const check = () => {
 
         console.log("check",props.player.id)
-        socket.emit("check",props.player.id); 
+        socket.emit("check",{roomId:props.table.id, id:props.player.id}); 
     };
     const call = () => {
 
         // console.log("call", props.table.currentBet)
-        socket.emit("call",props.player.id); 
+        socket.emit("call",{roomId:props.table.id, id:props.player.id}); 
     };
     const betOrRise = (value) => {
         
         // setPlayerBet(value);
         console.log("bet/rise", value)
         socket.emit("bet/rise",{
+            roomId:props.table.id, 
             id:props.player.id,
             value
         }); 
@@ -83,29 +84,23 @@ const Player = (props) => {
 
     // Display current user
     useEffect(()=>{
+        console.log(props.player.id,props.table.currentPlayerId)
         if (props.player.id === props.table.currentPlayerId) {
             setDisplay(true)
         } else {
             setDisplay(false)
         }
 
-        socket.on("deal_card", (c)=> {
-            if (c.playerId === props.player.id) {
-                setCard([...card,c.card])
-                console.log(card)
-            }
-            
-        })
-
     },[])
 
     // useEffect(()=>{
+    //     console.log(props.player.turn)
     //     if (typeof props.player.turn === 'boolean' && display) {
     //         document.getElementById(`fold${props.player.id}`).disabled = !props.player.turn;
     //         document.getElementById(`rise/bet${props.player.id}`).disabled = !props.player.turn;
     //         document.getElementById(`check/call${props.player.id}`).disabled = !props.player.turn;
     //     }
-    // },[props.player.turn])
+    // },[props.player])
 
     
     // Need to add display current action
@@ -185,8 +180,8 @@ const Player = (props) => {
                     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"/>
                 </div>
                 <div className="hand">
-                {typeof display === 'boolean' && card? (
-                    card.map((card,index)=>(
+                {typeof display === 'boolean' && props.player.hand? (
+                    props.player.hand.map((card,index)=>(
                     <Card key={props.player.id + index} card={card} display={display}/>
                     ))
                 ):(null)
@@ -198,7 +193,7 @@ const Player = (props) => {
                     <p>${props.player.chips}</p>
                 </div>
             </div>
-            {/* <div className="currentAction">
+            <div className="currentAction">
                 { 
                 (() => { 
                 switch(props.player.current_action) {
@@ -219,21 +214,21 @@ const Player = (props) => {
                     <span>${props.player.bet}</span>
                 ):(null) 
                 }
-            </div> */}
+            </div>
             {display ? (
             <div className="actions">
                 <div>
-                    <button id={`fold${props.player.id}`} onClick={()=>fold()} ><ImCross/></button>
+                    <button id={`fold${props.player.id}`} onClick={()=>fold()} disabled={!props.player.turn}><ImCross/></button>
                     <p>Fold</p>
                 </div>
                 {props.table.currentBet === 0 ? (
                     <>
                     <div>
-                        <button id={`check/call${props.player.id}`} onClick={()=>check()} ><BsCheckLg/></button>
+                        <button id={`check/call${props.player.id}`} onClick={()=>check()} disabled={!props.player.turn}><BsCheckLg/></button>
                         <p>Check</p>
                     </div>
                     <div>
-                            <button id={`rise/bet${props.player.id}`} onClick={handleClick}><GoArrowUp /></button>
+                            <button id={`rise/bet${props.player.id}`} onClick={handleClick} disabled={!props.player.turn}><GoArrowUp /></button>
                         <p>Bet</p>
                         {popover}
                     </div>
@@ -241,11 +236,11 @@ const Player = (props) => {
                 ):(
                     <>
                     <div>
-                        <button id={`check/call${props.player.id}`} onClick={()=>call()} >C</button>
+                        <button id={`check/call${props.player.id}`} onClick={()=>call()} disabled={!props.player.turn}>C</button>
                         <p>Call</p>
                     </div>
                     <div>
-                            <button id={`rise/bet${props.player.id}`} onClick={handleClick}><GoArrowUp/></button>
+                            <button id={`rise/bet${props.player.id}`} onClick={handleClick} disabled={!props.player.turn}><GoArrowUp/></button>
                         <p>Rise</p>
                         {popover}
                     </div>
