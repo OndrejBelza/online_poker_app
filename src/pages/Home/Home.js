@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import './Home.scss';
 
 const Home = () => {
@@ -10,6 +10,15 @@ const Home = () => {
 
   const [ value, setValue ] = useState("")
   const [ checked, setChecked ] = useState(true)
+  const { state } = useLocation();
+
+
+  useEffect(()=>{
+    if (state === "reload") {
+      navigate("/",{})
+      window.location.reload()
+    }
+  },[])
 
   const joinGame = (id) => {
     console.log(id)
@@ -24,7 +33,9 @@ const Home = () => {
     // console.log({value,privacy})
     // socket.emit("create_game", {value,privacy})
     socket.emit("create_game",privacy)
+    console.log("emited create game")
     socket.on("game_created", (res)=> {
+        console.log("about to join room")
         joinGame(res.id)
     })
   }

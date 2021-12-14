@@ -84,7 +84,6 @@ const Player = (props) => {
 
     // Display current user
     useEffect(()=>{
-        console.log(props.player.id,props.table.currentPlayerId)
         if (props.player.id === props.table.currentPlayerId) {
             setDisplay(true)
         } else {

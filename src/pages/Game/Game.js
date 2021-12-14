@@ -50,7 +50,7 @@ const Game = () => {
    
     const leaveTable = () => {
         socket.emit("leave_table",id)
-        navigate('/')
+        navigate('/', { state:"reload" })
     }
 
     const startGame = () => {
