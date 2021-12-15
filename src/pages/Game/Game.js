@@ -49,6 +49,7 @@ const Game = () => {
     },[socket])
    
     const leaveTable = () => {
+        socket.emit("fold",{roomId:id, id:table.currentPlayerId}); 
         socket.emit("leave_table",id)
         navigate('/', { state:"reload" })
     }
