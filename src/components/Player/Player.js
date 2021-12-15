@@ -13,15 +13,24 @@ import { GoArrowUp } from "react-icons/go";
 const Player = (props) => {
     const [ display, setDisplay ] = useState(undefined);
     const [ timer, setTimer ] = useState(20)
-    // const [ value, setValue ] = useState(props.table.currentBet-props.player.bet);
-    const [ value, setValue ] = useState(0)
+    const [ value, setValue ] = useState();
+
     // const [ action, setAction ] = useState();
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
 
   
-   
+    useEffect(()=>{
+        setValue(props.table.currentRoundBet+1000)
+    },[props])
     
+    useEffect(()=>{
+        if (props.player.turn && props.player.current_action === "fold") {
+            console.log("fold")
+            socket.emit("fold",{roomId:props.table.id, id:props.player.id});
+        }
+    },[])
+
     const socket = useSelector((state) => state.socket.socket);
 
     //Event handlers ///////////////////////////////////////
@@ -36,7 +45,7 @@ const Player = (props) => {
     };
     const call = () => {
 
-        // console.log("call", props.table.currentBet)
+        // console.log("call", props.table.current_bet)
         socket.emit("call",{roomId:props.table.id, id:props.player.id}); 
     };
     const betOrRise = (value) => {
@@ -137,8 +146,7 @@ const Player = (props) => {
                 <Slider
                     value={value}
                     step={1000} 
-                    // min={props.table.currentBet-props.player.bet} 
-                    min={0}
+                    min={props.table.currentRoundBet+1000} 
                     max={props.player.chips}
                     onChange={handleSliderChange}
                     aria-labelledby="input-slider"
@@ -150,8 +158,7 @@ const Player = (props) => {
                     onBlur={handleBlur}
                     inputProps={{
                         step: 1000,
-                        // min: (props.table.currentBet-props.player.bet),
-                        min: 0,
+                        min: (props.table.currentRoundBet+1000),
                         max: props.player.chips,
                         type: 'number',
                         'aria-labelledby': 'input-slider',
@@ -209,8 +216,8 @@ const Player = (props) => {
                     }
                 })()
                 }{
-                props.player.bet ? (
-                    <span>${props.player.bet}</span>
+                props.player.current_bet ? (
+                    <span>${props.player.current_bet}</span>
                 ):(null) 
                 }
             </div>
@@ -220,7 +227,7 @@ const Player = (props) => {
                     <button id={`fold${props.player.id}`} onClick={()=>fold()} disabled={!props.player.turn}><ImCross/></button>
                     <p>Fold</p>
                 </div>
-                {props.table.currentBet === 0 ? (
+                {props.table.currentRoundBet === 0 ? (
                     <>
                     <div>
                         <button id={`check/call${props.player.id}`} onClick={()=>check()} disabled={!props.player.turn}><BsCheckLg/></button>

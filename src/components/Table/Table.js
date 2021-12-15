@@ -27,7 +27,7 @@ const Table = (props) => {
                     <img alt="chips" src={Chips}/>
                     <img alt="chips" src={Chips}/>
                 </div>
-                <p>${props.table.pot}</p>
+                <p>${props.table.currentPot}</p>
             </div>
             
             <Deck deck={props.table.cardsOnTable}/>

@@ -64,7 +64,7 @@ const Game = () => {
             <div className="game">
                 <IoMdExit onClick={()=>leaveTable()} className="leaveTable"/>
                 <Table table={table} />
-                <button style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button>
+                <button id="start" style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button>
             </div>
         ):(null)}
         </div>
