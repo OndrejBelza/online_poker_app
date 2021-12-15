@@ -24,12 +24,6 @@ const Player = (props) => {
         setValue(props.table.currentRoundBet+1000)
     },[props])
     
-    useEffect(()=>{
-        if (props.player.turn && props.player.current_action === "fold") {
-            console.log("fold")
-            socket.emit("fold",{roomId:props.table.id, id:props.player.id});
-        }
-    },[])
 
     const socket = useSelector((state) => state.socket.socket);
 
