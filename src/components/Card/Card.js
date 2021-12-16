@@ -10,25 +10,25 @@ const Card = (props) => {
                 { 
                 (() => { 
                     switch(props.card.suit) {
-                        case "Spades":
+                        case "spades":
                             return <>
                                 <p>{props.card.value}</p>
                                 <BsFillSuitSpadeFill color="black" className="suit"/>
                                 <BsFillSuitSpadeFill color="black" className="suit2"/>
                             </>
-                        case "Diamonds":
+                        case "diamonds":
                            return <>
                             <p style={{color:"red"}}>{props.card.value}</p>
                             <BsFillSuitDiamondFill color="red" className="suit"/>
                             <BsFillSuitDiamondFill color="red" className="suit2"/>
                         </>
-                        case "Hearts":
+                        case "hearts":
                             return <>
                                 <p style={{color:"red"}}>{props.card.value}</p>
                                 <BsFillSuitHeartFill color="red" className="suit"/>
                                 <BsFillSuitHeartFill color="red" className="suit2"/>
                             </>
-                        case "Clubs":
+                        case "clubs":
                             return <>
                                 <p>{props.card.value}</p>
                                 <BsFillSuitClubFill color="black" className="suit"/>
