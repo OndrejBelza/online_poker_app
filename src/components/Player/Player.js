@@ -71,19 +71,19 @@ const Player = (props) => {
     //     }
     // },[timer])
 
-    // useEffect(()=>{
-    //     console.log(props.player.current_action)
-    //     if (props.player.current_action === "fold") {
-    //         document.getElementById(`player${props.player.position}`).style.opacity = 0.3;
-    //     } else {
-    //         document.getElementById(`player${props.player.position}`).style.opacity = 1;
-    //     }
-    //     if (props.player.turn){
-    //         setTimer(20)
-    //     } else {
-    //         setTimer(undefined)
-    //     }
-    // },[props.player.turn])
+    useEffect(()=>{
+        console.log(props.player.current_action)
+        if (props.player.current_action === "fold") {
+            document.getElementById(`player${props.player.position}`).style.opacity = 0.3;
+        } else {
+            document.getElementById(`player${props.player.position}`).style.opacity = 1;
+        }
+        // if (props.player.turn){
+        //     setTimer(20)
+        // } else {
+        //     setTimer(undefined)
+        // }
+    },[props])
 
     // Display current user
     useEffect(()=>{
@@ -95,17 +95,6 @@ const Player = (props) => {
 
     },[])
 
-    // useEffect(()=>{
-    //     console.log(props.player.turn)
-    //     if (typeof props.player.turn === 'boolean' && display) {
-    //         document.getElementById(`fold${props.player.id}`).disabled = !props.player.turn;
-    //         document.getElementById(`rise/bet${props.player.id}`).disabled = !props.player.turn;
-    //         document.getElementById(`check/call${props.player.id}`).disabled = !props.player.turn;
-    //     }
-    // },[props.player])
-
-    
-    // Need to add display current action
 
     //Betting input handler
     const handleSliderChange = (event, newValue) => {
@@ -139,7 +128,7 @@ const Player = (props) => {
             <Popover.Body>
                 <Slider
                     value={value}
-                    step={1000} 
+                    step={props.table.roomOptions} 
                     min={props.table.currentRoundBet+1000} 
                     max={props.player.chips}
                     onChange={handleSliderChange}

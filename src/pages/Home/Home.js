@@ -32,7 +32,7 @@ const Home = () => {
     const privacy = document.getElementById("public").checked ? "PUBLIC" : "PRIVATE";
     // console.log({value,privacy})
     // socket.emit("create_game", {value,privacy})
-    socket.emit("create_game",privacy)
+    socket.emit("create_game",privacy,value)
     console.log("emited create game")
     socket.on("game_created", (res)=> {
         console.log("about to join room")
@@ -55,23 +55,23 @@ const Home = () => {
                 <div className="stake-inside-flex" onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>1k</p>
+                    <p>10</p>
                   </div>
-                  <p>20k/100k</p>
+                  <p>200/1000</p>
                 </div>
                 <div className="stake-inside-flex"onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>10k</p>
+                    <p>100</p>
                   </div>
-                  <p>200k/1M</p>
+                  <p>2000/10000</p>
                 </div>
                 <div className="stake-inside-flex"onClick={()=>joinGame(null)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>100k</p>
+                    <p>1000</p>
                   </div>
-                  <p>2M/10M</p>
+                  <p>20000/100000</p>
                 </div>
               </div>
             </div>
@@ -84,26 +84,26 @@ const Home = () => {
                 <p>Mix/Max Buy-in</p>
               </div>
               <div className="stake-box">
-                <div className="stake-inside-flex" onClick={()=>createGame(1)}>
+                <div className="stake-inside-flex" onClick={()=>createGame(1000)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>1k</p>
+                    <p>10</p>
                   </div>
-                  <p>20k/100k</p>
+                  <p>200/1000</p>
                 </div>
-                <div className="stake-inside-flex"onClick={()=>createGame(10)}>
+                <div className="stake-inside-flex"onClick={()=>createGame(10000)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>10k</p>
+                    <p>100</p>
                   </div>
-                  <p>200k/1M</p>
+                  <p>2000/10000</p>
                 </div>
-                <div className="stake-inside-flex"onClick={()=>createGame(100)}>
+                <div className="stake-inside-flex"onClick={()=>createGame(100000)}>
                   <div className="stakes">
                     <div className="chip-wrapper"></div>
-                    <p>100k</p>
+                    <p>1000</p>
                   </div>
-                  <p>2M/10M</p>
+                  <p>20000/100000</p>
                 </div>
               </div>
               <div className="privacy">

@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { IoMdExit } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router";
+import Card from "../../components/Card/Card";
 
 import "./Game.scss";
+
 
 const Game = () => {
     const socket = useSelector((state) => state.socket.socket);
@@ -14,7 +16,7 @@ const Game = () => {
 
 
     const [ table, setTable ] = useState(null);
-
+    const [ winner, setWinner ] = useState(null);
 
     useEffect(()=>{
         socket.emit("get_game_data", id)
@@ -45,6 +47,12 @@ const Game = () => {
             console.log("player did a move")
             socket.emit("get_game_data", id)
         })
+        socket.on("winner", (winner) => {
+            setWinner(winner)
+            setTimeout(()=>{
+                setWinner(null)
+            },3000)
+        })
 
     },[socket])
    
@@ -65,7 +73,18 @@ const Game = () => {
             <div className="game">
                 <IoMdExit onClick={()=>leaveTable()} className="leaveTable"/>
                 <Table table={table} />
-                <button id="start" style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button>
+                {/* <button id="start" style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button> */}
+                {winner ? (
+                    <div className="winner">
+                        <h1>{winner.username} is the winner!</h1>
+                        <div className="winningHand">
+                            {winner.hand.map((card,index)=>(
+                                <Card key={index} card={card}/>
+                            ))}    
+                        </div>
+                        <h2>{winner.description}</h2>
+                    </div>
+                ):(null)}
             </div>
         ):(null)}
         </div>

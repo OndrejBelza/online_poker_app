@@ -28,3 +28,25 @@
         }
     }
 }
+
+
+.winner {
+    z-index: 10000;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.493);
+    backdrop-filter: blur(5px);
+    h1, h2 {
+        color: white;
+    }
+    .winningHand {
+        margin: 8%;
+        display: flex;
+        transform: scale(1.5);
+    }
+}
