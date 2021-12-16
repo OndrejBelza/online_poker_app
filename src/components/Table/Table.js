@@ -9,11 +9,11 @@ const Table = (props) => {
 
     const socket = useSelector((state) => state.socket.socket);
 
-    const [ chips, setChips ] = useState([]);
+    // const [ chips, setChips ] = useState([]);
 
-    useEffect(()=>{
-        setChips([...chips,])
-    },[props.table.pot])
+    // useEffect(()=>{
+    //     setChips([...chips,])
+    // },[props.table.pot])
 
     return (
         <div className="table">
@@ -27,10 +27,10 @@ const Table = (props) => {
                     <img alt="chips" src={Chips}/>
                     <img alt="chips" src={Chips}/>
                 </div>
-                <p>${props.table.pot}</p>
+                <p>${props.table.currentPot}</p>
             </div>
             
-            <Deck deck={props.table.deck}/>
+            <Deck deck={props.table.cardsOnTable}/>
         </div>
     );
 };

@@ -39,7 +39,7 @@ const Registration = () => {
     dispatch(setUser(user));
 
     //navigates to home
-    navigate("/");
+    navigate('/', { state:"reload" })
   };
   return (
     <>

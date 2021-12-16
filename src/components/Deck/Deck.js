@@ -6,7 +6,7 @@ const Deck = (props) => {
     return (
         <div className={"deck"}>
             {props.deck.map(card=> (
-                <Card key={card.suit+card.value} card={card} skin="default" display="front"/> 
+                <Card key={card.suit+card.value} card={card}/> 
             ))}
         </div>
     );

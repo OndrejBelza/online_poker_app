@@ -13,11 +13,10 @@ const Game = () => {
     const { id } = useParams();
 
 
-    const [ table, setTable ] = useState();
+    const [ table, setTable ] = useState(null);
 
 
     useEffect(()=>{
-        console.log(id)
         socket.emit("get_game_data", id)
     },[])
 
@@ -34,11 +33,29 @@ const Game = () => {
             console.log(data)
             setTable(data)
         })
+        socket.on("game_started", () => {
+            console.log(`game started and user is requesting data`)
+            socket.emit("get_game_data", id)
+        })
+        socket.on("round_started", () => {
+            console.log("round started")
+            socket.emit("get_game_data", id)
+        })
+        socket.on("player_action", () => {
+            console.log("player did a move")
+            socket.emit("get_game_data", id)
+        })
+
     },[socket])
    
     const leaveTable = () => {
         socket.emit("leave_table",id)
-        navigate('/')
+        navigate('/', { state:"reload" })
+    }
+
+    const startGame = () => {
+        socket.emit("start_game", id)
+        console.log("start")
     }
 
     return (
@@ -46,7 +63,8 @@ const Game = () => {
         {table ? (
             <div className="game">
                 <IoMdExit onClick={()=>leaveTable()} className="leaveTable"/>
-                {/* <Table table={table} /> */}
+                <Table table={table} />
+                <button id="start" style={{zIndex: 10000}} onClick={()=>startGame()}>Start</button>
             </div>
         ):(null)}
         </div>

@@ -5,13 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Header.scss";
 import axiosClient from "../../../utils/axiosClient";
 import { setUser } from "../../../redux/user/userSlice";
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const logout = async () => {
     const response = await axiosClient.post("logout");
-    if (response.status === 200) dispatch(setUser(undefined));
+    if (response.status === 200) {
+      dispatch(setUser(undefined));
+      window.location.reload()
+    }
   };
 
   return (

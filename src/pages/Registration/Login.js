@@ -29,7 +29,7 @@ const Login = () => {
       dispatch(setUser(user));
 
       //navigates to home
-      navigate("/");
+      navigate('/', { state:"reload" })
     } catch (error) {
       console.error(error);
     }
