@@ -21,7 +21,7 @@ const Player = (props) => {
 
   
     useEffect(()=>{
-        setValue(props.table.currentRoundBet+1000)
+        setValue(props.table.currentRoundBet+props.table.blind)
     },[props])
     
 
@@ -128,8 +128,8 @@ const Player = (props) => {
             <Popover.Body>
                 <Slider
                     value={value}
-                    step={props.table.roomOptions} 
-                    min={props.table.currentRoundBet+1000} 
+                    step={props.table.blind} 
+                    min={props.table.currentRoundBet+props.table.blind} 
                     max={props.player.chips}
                     onChange={handleSliderChange}
                     aria-labelledby="input-slider"
@@ -140,8 +140,8 @@ const Player = (props) => {
                     onChange={handleInputChange}
                     onBlur={handleBlur}
                     inputProps={{
-                        step: 1000,
-                        min: (props.table.currentRoundBet+1000),
+                        step: props.table.blind,
+                        min: (props.table.currentRoundBet+props.table.blind),
                         max: props.player.chips,
                         type: 'number',
                         'aria-labelledby': 'input-slider',
