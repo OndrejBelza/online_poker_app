@@ -37,7 +37,7 @@ const Header = () => {
                   </Nav.Link>
                   <Nav.Link>{user.balance}</Nav.Link>
                   <Nav.Link as={Link} to="profile">
-                    Settings
+                    Profile
                   </Nav.Link>
 
                   <Nav.Link onClick={logout}>Logout</Nav.Link>
